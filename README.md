@@ -2,6 +2,8 @@
 
 This project serves as an API gateway for `ipmitool` to access Supermicro servers' IPMI, designed to be called by Home Assistant. It provides a simple interface to manage server operations such as starting, stopping, and checking the health of the servers. It has no security on it (yet) so run at your own risk.
 
+Full disclosure: Claude Sonnet 4 wrote all of the Python. 
+
 ## Features
 
 - **Single & Multi-Server Support** - Manage one or multiple IPMI devices

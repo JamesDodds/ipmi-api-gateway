@@ -1,8 +1,10 @@
 # IPMI API Gateway
 
-This project serves as an API gateway for `ipmitool` to access Supermicro servers' IPMI, designed to be called by Home Assistant. It provides a simple interface to manage server operations such as starting, stopping, and checking the health of the servers. It has no security on it (yet) so run at your own risk.
+This project serves as an API gateway for `ipmitool` to access Supermicro servers' IPMI, designed to be called by Home Assistant. It provides a simple interface to manage server operations such as starting, stopping, and checking the health of the servers.
 
-Full disclosure: Claude Sonnet 4 wrote all of the Python. 
+⚠️ **Security Notice**: This project has no authentication/authorization (yet) so run at your own risk in trusted environments only.
+
+🤖 **Full disclosure**: Claude Sonnet 4 wrote all of the Python code.
 
 ## Features
 
@@ -44,7 +46,7 @@ ipmi-api-gateway
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/JamesDodds/ipmi-api-gateway.git
    cd ipmi-api-gateway
    ```
 
@@ -52,9 +54,9 @@ ipmi-api-gateway
    ```yaml
    environment:
      - FLASK_ENV=development
-     - IPMI_HOST=192.168.1.197    # Your IPMI device IP
-     - IPMI_USER=ADMIN            # Your IPMI username
-     - IPMI_PASSWORD=ADMIN        # Your IPMI password
+     - IPMI_HOST=192.168.1.xxx    # Your IPMI device IP
+     - IPMI_USER=your_username    # Your IPMI username
+     - IPMI_PASSWORD=your_password # Your IPMI password
    ```
 
 3. **Build and run:**
@@ -179,10 +181,26 @@ sensor:
     value_template: "{{ value_json.power_state }}"
 ```
 
+### Grafana/Prometheus
+The API provides structured sensor data that can be easily integrated with monitoring systems for trending and alerting.
+
 ## Contributing
 
 Contributions are welcome! Please submit a pull request or open an issue for any enhancements or bug fixes.
 
+## Acknowledgments
+
+This project is built on top of several excellent open-source tools:
+
+- **[ipmitool](https://github.com/ipmitool/ipmitool)** - The foundational IPMI utility that makes all server management operations possible. This project would not exist without the incredible work of the ipmitool maintainers and contributors.
+- **[Flask](https://flask.palletsprojects.com/)** - The lightweight web framework powering the API
+- **[Docker](https://www.docker.com/)** - For containerization and easy deployment
+- **[Python](https://www.python.org/)** - The language that ties it all together
+
+Special thanks to the broader IPMI and open-source server management community for building and maintaining the tools that enable projects like this.
+
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+**Note**: This project is a wrapper around existing tools and does not include any IPMI implementation itself. All IPMI functionality is provided by the excellent `ipmitool` utility.

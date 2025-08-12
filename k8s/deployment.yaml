@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ipmi-api-gateway
+  labels:
+    app: ipmi-api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ipmi-api-gateway
+  template:
+    metadata:
+      labels:
+        app: ipmi-api-gateway
+    spec:
+      containers:
+      - name: ipmi-api-gateway
+        image: ipmi-api-gateway:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: IPMI_CONFIG_PATH
+          value: "/etc/ipmi/config.json"
+        - name: PORT
+          value: "5000"
+        - name: DEBUG
+          value: "false"
+        volumeMounts:
+        - name: ipmi-config
+          mountPath: /etc/ipmi
+          readOnly: true
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      volumes:
+      - name: ipmi-config
+        secret:
+          secretName: ipmi-credentials

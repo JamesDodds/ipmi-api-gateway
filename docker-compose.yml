@@ -1,0 +1,19 @@
+services:
+  ipmi-api-gateway:
+    image: ipmi-api-gateway:latest
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./src:/app/src
+#      - ./config:/etc/ipmi  # Mount local config directory
+    environment:
+      - FLASK_ENV=development
+      - IPMI_HOST=192.168.1.123
+      - IPMI_USER=USER
+      - IPMI_PASSWORD=PASSWORD
+    networks:
+      - ipmi-network
+
+networks:
+  ipmi-network:
+    driver: bridge

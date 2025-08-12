@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ipmi-config
+data:
+  IPMI_HOST: "your_ipmi_host"
+  IPMI_USER: "your_ipmi_user"
+  IPMI_PASSWORD: "your_ipmi_password"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ipmi-credentials
+type: Opaque
+data:
+  config.json: eyJob3N0bmFtZSI6InlvdXJfaXBtaV9ob3N0IiwidXNlcm5hbWUiOiJ5b3VyX2lwbWlfdXNlciIsInBhc3N3b3JkIjoieW91cl9pcG1pX3Bhc3N3b3JkIn0=
+---
+# Base64 encoded config.json:
+# {"hostname":"your_ipmi_host","username":"your_ipmi_user","password":"your_ipmi_password"}
+# To create your own secret, encode your JSON config:
+# echo -n '{"hostname":"192.168.1.100","username":"admin","password":"yourpassword"}' | base64

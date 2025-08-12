@@ -4,7 +4,7 @@ This project serves as an API gateway for `ipmitool` to access Supermicro server
 
 ⚠️ **Security Notice**: This project has no authentication/authorization (yet) so run at your own risk in trusted environments only.
 
-🤖 **Full disclosure**: Claude Sonnet 4 wrote all of the Python code.
+🤖 **Full disclosure**: Claude Sonnet 4 wrote all of the Python code. And this readme. Had I done it, there would be a lot more swearing. 
 
 ## Features
 
